@@ -17,6 +17,9 @@ public:
     void pop();  // throws std::underflow_error if empty
     const T& top() const; // throws std::underflow_error if empty
     // Add other members only if necessary
+
+private: 
+    std::vector<T> stackVec;
 };
 
 // constructor
@@ -41,7 +44,7 @@ template<typename T>
 bool Stack<T>::empty() const
 {
     // checks if no items
-    return std::vector<T>::empty();
+    return stackVec.empty();
 }
 
 // size
@@ -49,7 +52,7 @@ template<typename T>
 size_t Stack<T>::size() const
 {
     // gets num of items in the stack
-    return std::vector<T>::size();
+    return stackVec.size();
 }
 
 // push
@@ -57,36 +60,29 @@ template<typename T>
 void Stack<T>::push(const T& item)
 {
     // pushes an item to the top
-    std::vector<T>::push_back(item);
+    stackVec.push_back(item);
 }
 
 // pop
 template<typename T>
 void Stack<T>::pop()
 {
-    if (std::vector<T>::empty()) {
-        // throws error
+    if(stackVec.empty())
+    {
         throw std::underflow_error("the stack is empty!");
     }
-    else{
-        // removes the top item 
-        std::vector<T>::pop_back();
-    }
-
+    stackVec.pop_back();
 }
 
 // top
 template<typename T>
 const T& Stack<T>::top() const
 {
-    if (std::vector<T>::empty()) {
-        // throws error
+    if(stackVec.empty())
+    {
         throw std::underflow_error("the stack is empty!");
     }
-    else{
-        // returns top item
-        return std::vector<T>::back();
-    }
+    return stackVec[stackVec.size() - 1];
 }
 
 
