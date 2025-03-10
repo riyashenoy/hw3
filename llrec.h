@@ -84,6 +84,27 @@ Node* llfilter(Node* head, Comp pred)
     // Provide your implementation below
     //*********************************************
 
+    // base case
+    if (head == nullptr) {
+
+        // if list empty return nill
+        return nullptr;
+    }
+
+    // vars
+    Node* findNext = llfilter(head->next, pred); // goes thru the rest of the list, filtering
+    bool detDelete = pred(head->val); // check if the node should get deleted
+
+    if (detDelete) {
+        // free memory
+        delete head;  
+        return findNext;
+    } 
+    else {
+        head->next = findNext;
+        return head;
+    }
+
 
 }
 
